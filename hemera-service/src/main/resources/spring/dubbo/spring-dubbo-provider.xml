@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="hemera-service" owner="matrix" organization="le"/>
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.zkAddr}" />
+    <!--自动扫描该包路径，省去每个都配合dubbo:service-->
+    <dubbo:annotation package="com.le.matrix.hemera.service"/>
+    <dubbo:provider filter="dealExceptionFilter" />
+    <!-- dubbo协议定义 -->
+    <dubbo:protocol name="dubbo" accesslog="true" port="${dubbo.protocol.port.dubbo}"/>
+
+    <!--使用内置tomcat服务器   可以省去webapp里面内容          !!!与下面二选一-->
+    <!--如果直接Main启动/junit启动（一般测试时候用），使用下面配置  -->
+    <!--开发环境使用jetty启动，测试及生产环境使用servlet-->
+    <dubbo:protocol name="rest" port="${dubbo.protocol.port.rest}" threads="500" contextpath="services" server="${dubbo.protocol.server}" accepts="500" />
+    
+
+    <!--暴露服务列表-->
+    <!--关于service属性配置看http://dubbo.io/User+Guide-zh.htm#UserGuide-zh-%253Cdubbo%253Aservice%252F%253E-->
+    <!--开发手册看http://dubbo.io/Developer+Guide-zh.htm#DeveloperGuide-zh-%E8%B0%83%E7%94%A8%E6%8B%A6%E6%88%AA%E6%89%A9%E5%B1%95-->
+    <!--
+                  interface     接口名
+                  ref           服务对象实现引用
+                  retries       远程服务调用重试次数，默认为2，不包括第一次调用，不需要重试请设为0
+                  protocol      协议，默认为上面定义的所有协议
+                  timeout       远程服务调用超时时间
+                  connections   对每个提供者的最大连接数，rmi、http、hessian等短连接协议表示限制连接数，dubbo等长连接协表示建立的长连接个数
+                  validation    是否启用JSR303标准注解验证，如果启用，将对方法参数上的注解进行校验
+                  version       服务版本，建议使用两位数字版本，如：1.0，通常在接口不兼容时版本号才需要升级
+    -->       
+    <dubbo:service interface="com.le.matrix.hemera.facade.ITaskAsyncExecuteService" ref="taskAsyncExecuteService" validation="true"/>
+    <dubbo:service interface="com.le.matrix.hemera.facade.ITaskChainIndexService" ref="taskChainIndexService" validation="true"/>
+    <dubbo:service interface="com.le.matrix.hemera.facade.ITaskChainService" ref="taskChainService" validation="true"/>
+    <dubbo:service interface="com.le.matrix.hemera.facade.ITaskEngine" ref="taskEngine" validation="true" retries="0" timeout="10000"/>
+    <dubbo:service interface="com.le.matrix.hemera.facade.ITemplateTaskChainService" ref="templateTaskChainService" validation="true"/>
+    <dubbo:service interface="com.le.matrix.hemera.facade.ITemplateTaskDetailService" ref="templateTaskDetailService" validation="true"/>
+    <dubbo:service interface="com.le.matrix.hemera.facade.ITemplateTaskService" ref="templateTaskService" validation="true"/>
+    
+</beans>

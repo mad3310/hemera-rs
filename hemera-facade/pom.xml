@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.le.matrix.hemera</groupId>
+        <artifactId>hemera-rs</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>hemera-facade</artifactId>
+    <packaging>jar</packaging>
+
+    <description>
+       	 流程编排服务接口模块
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.le.matrixframework</groupId>
+            <artifactId>matrix-facade</artifactId>
+        </dependency>
+        <dependency>
+		  	<groupId>com.letv.cloudplatform</groupId>
+		  	<artifactId>webportal-common</artifactId>
+		</dependency>
+		<!-- 一些共用的接口在terra-facade,后期会删除,移入webportal-common -->
+        <dependency>
+            <groupId>com.le.matrix.redis</groupId>
+            <artifactId>terra-facade</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+</project>

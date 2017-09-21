@@ -1,0 +1,234 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.le.matrix.hemera</groupId>
+    <artifactId>hemera-rs</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    
+    <modules>
+        <module>hemera-service</module>
+        <module>hemera-facade</module>
+    </modules>
+    
+    <profiles>
+	    <profile>
+	        <id>local</id>
+	        <activation>
+	            <activeByDefault>true</activeByDefault>
+	        </activation>
+	        <properties>
+	            <db.url>jdbc:mysql://10.204.29.161:3306/paascloud_test?useUnicode=true&amp;characterEncoding=utf-8</db.url>
+	            <db.username>webportal</db.username>
+	            <db.password>H6ZMvaimaKGyrwRb4u7tAIjTTGflemmWySrZwT/lt51IkVR7+WrwhNdAZcnO4WjQJp6NH2KO1++qjblh8Y12fg==</db.password>
+	
+				<dubbo.registry.zkAddr>127.0.0.1:2181</dubbo.registry.zkAddr>
+				<dubbo.protocol.server>jetty</dubbo.protocol.server>
+				<dubbo.protocol.port.dubbo>30881</dubbo.protocol.port.dubbo>
+	            <dubbo.protocol.port.rest>18888</dubbo.protocol.port.rest>
+	
+	            <webportal.errormail.to>lisuxiao@le.com</webportal.errormail.to>
+	            <service.notice.email.to>lisuxiao@le.com</service.notice.email.to>
+	            <service.operation.notice.email.to>lisuxiao@le.com</service.operation.notice.email.to>
+	            <start.timing.jobs>N</start.timing.jobs>
+	
+	            <webportal.log.path>D:</webportal.log.path>
+	
+	            <task.executor.size>30</task.executor.size>
+	
+	            <com.letv.cache.implStyle>Local</com.letv.cache.implStyle>
+	
+	        </properties>
+	    </profile>
+	
+	    <profile>
+	        <id>test</id>
+	        <properties>
+	            <db.url>jdbc:mysql://127.0.0.1:3306/paascloud_test?useUnicode=true&amp;characterEncoding=utf-8</db.url>
+	            <db.username>webportal</db.username>
+	            <db.password>H6ZMvaimaKGyrwRb4u7tAIjTTGflemmWySrZwT/lt51IkVR7+WrwhNdAZcnO4WjQJp6NH2KO1++qjblh8Y12fg==</db.password>
+	
+				<dubbo.registry.zkAddr>10.185.81.160:2181,10.185.81.240:2181,10.185.81.244:2181</dubbo.registry.zkAddr>
+				<dubbo.protocol.server>servlet</dubbo.protocol.server>
+				<dubbo.protocol.port.dubbo>30881</dubbo.protocol.port.dubbo>
+	            <dubbo.protocol.port.rest>8080</dubbo.protocol.port.rest>
+	
+	            <webportal.errormail.to>lisuxiao@le.com;linzhanbo@le.com;zhangtao8@le.com</webportal.errormail.to>
+	            <service.notice.email.to>lisuxiao@le.com;linzhanbo@le.com;zhangtao8@le.com</service.notice.email.to>
+	            <service.operation.notice.email.to>lisuxiao@le.com;linzhanbo@le.com;zhangtao8@le.com</service.operation.notice.email.to>
+	            <start.timing.jobs>N</start.timing.jobs>
+	
+	            <webportal.log.path>/var/log</webportal.log.path>
+	
+	            <task.executor.size>30</task.executor.size>
+	
+	            <com.letv.cache.implStyle>Local</com.letv.cache.implStyle>
+	        </properties>
+	    </profile>
+	
+	    <profile>
+	        <id>production</id>
+	        <properties>
+	            <db.url>jdbc:mysql://10.130.85.171:3306/paascloud_test?useUnicode=true&amp;characterEncoding=utf-8&amp;zeroDateTimeBehavior=convertToNull</db.url>
+	            <db.username>paascloud_wr</db.username>
+	            <db.password>fwpJzm3md6csTb6bRdCCbgcw+aZmm3uV5cakYDGXJ6FOGBrAP2K0l2KHe2QplGI66Ev3X0HdXBA+QkIqI/l8pQ==</db.password>
+	
+				<dubbo.registry.zkAddr>10.180.82.228:2181,10.180.82.118:2181,10.180.91.13:2181</dubbo.registry.zkAddr>
+				<dubbo.protocol.server>servlet</dubbo.protocol.server>
+				<dubbo.protocol.port.dubbo>30881</dubbo.protocol.port.dubbo>
+	            <dubbo.protocol.port.rest>8080</dubbo.protocol.port.rest>
+	            
+	            <!-- 使用邮件组无法识别，暂时使用邮箱名 -->
+	            <webportal.errormail.to>lisuxiao@le.com;linzhanbo@le.com;zhoubingzheng@le.com</webportal.errormail.to>
+	            <service.notice.email.to>lisuxiao@le.com;linzhanbo@le.com;zhoubingzheng@le.com</service.notice.email.to>
+	            <service.operation.notice.email.to>lisuxiao@le.com;linzhanbo@le.com;zhoubingzheng@le.com</service.operation.notice.email.to>
+	            <start.timing.jobs>N</start.timing.jobs>
+	
+	            <webportal.log.path>/var/log</webportal.log.path>
+	
+	            <task.executor.size>150</task.executor.size>
+	
+	            <com.letv.cache.implStyle>Remote</com.letv.cache.implStyle>
+	
+	        </properties>
+	    </profile>
+    </profiles>
+
+    <description>
+       	流程编排服务框架工程
+    </description>
+
+    <organization>
+        <name>LeCloud Software, Inc.</name>
+        <url>http://lecloud.com/</url>
+    </organization>
+    <scm>
+        <url>http://git.letv.cn/le_matrix/hemera-rs.git</url>
+    </scm>
+    <prerequisites>
+        <!--maven版本限制-->
+        <maven>3.0.0</maven>
+    </prerequisites>
+
+    <developers>
+        <developer>
+            <id>linzhanbo</id>
+            <name>linzhanbo</name>
+            <email>linzhanbo@le.com</email>
+            <organization>LeCloud Software, Inc.</organization>
+            <organizationUrl>http://lecloud.com/</organizationUrl>
+            <roles>
+                <role>Project lead</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>lisuxiao</id>
+            <name>lisuxiao</name>
+            <email>lisuxiao@letv.com</email>
+            <organization>LeCloud Software, Inc.</organization>
+            <organizationUrl>http://lecloud.com/</organizationUrl>
+            <roles>
+                <role>Project lead</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <parent>
+        <groupId>com.le.matrixframework</groupId>
+        <artifactId>matrix-starter-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+			<dependency>
+			  	<groupId>com.letv.cloudplatform</groupId>
+			  	<artifactId>webportal-common</artifactId>
+			  	<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+			  	<groupId>com.letv.cloudplatform</groupId>
+			  	<artifactId>webportal-cache-client</artifactId>
+			  	<version>1.0-SNAPSHOT</version>
+			</dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+            <!--jdk版本>=1.7-->
+            <!--dubbox 需要在JDK 1.7以上运行-->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <!--私有仓库配置  begin-->
+    <repositories>
+        <!--私有仓库 url-->
+        <repository>
+            <id>Matrix-Thirdparty repository</id>
+            <name>Letv.com Repository</name>
+            <url>http://maven.letv.cn/nexus/content/repositories/Matrix-Thirdparty/</url>
+        </repository>
+        <repository>
+            <id>Matrix-Snapshot repository</id>
+            <name>Letv.com Repository</name>
+            <url>http://maven.letv.cn/nexus/content/repositories/Matrix-Snapshot/</url>
+        </repository>
+        <repository>
+            <id>Matrix-Release repository</id>
+            <name>Letv.com Repository</name>
+            <url>http://maven.letv.cn/nexus/content/repositories/Matrix-Release/</url>
+        </repository>
+        <repository>
+            <id>letv.public repository</id>
+            <name>Letv.com Repository</name>
+            <url>http://maven.letv.cn/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+    <!--私有仓库配置  end-->
+    <!--私有插件配置 begin-->
+    <pluginRepositories>
+        <!--私有仓库插件 url-->
+        <pluginRepository>
+            <id>letv.public plugin</id>
+            <name>Letv.com Repository</name>
+            <url>http://maven.letv.cn/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    <!--deploy begin-->
+    <distributionManagement>
+        <!--deploy url-->
+        <repository>
+            <id>project-release</id>
+            <name>Projects Release repository</name>
+            <url>http://maven.letv.cn/nexus/content/repositories/Matrix-Release/</url>
+        </repository>
+        <snapshotRepository>
+            <id>project-snapshots</id>
+            <name>Projects SnapShot repository</name>
+            <url>http://maven.letv.cn/nexus/content/repositories/Matrix-Snapshot/</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <!--deploy end-->
+</project>
